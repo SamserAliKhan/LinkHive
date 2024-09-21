@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-// import dotenv from 'dotenv';
-// dotenv.config();
 
 const backendUrl = "http://localhost:5000";
-console.log('Backend URL:', backendUrl);
 
 const SignupPage = () => {
   const [formData, setFormData] = useState({
@@ -67,7 +64,7 @@ const SignupPage = () => {
         placeholder="Password" 
         required 
       />
-      <button type="submit">Signup</button>
+      <button type="submit">SignUp</button>
 
       {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
       {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
