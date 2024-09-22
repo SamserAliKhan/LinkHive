@@ -7,7 +7,8 @@ const SignupPage = () => {
   const [formData, setFormData] = useState({
     username: '',
     email: '',
-    password: ''
+    password: '',
+    confirmPassword: ''
   });
 
   const [errorMessage, setErrorMessage] = useState('');
@@ -19,6 +20,10 @@ const SignupPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (formData.password !== formData.confirmPassword) {
+      setErrorMessage('Passwords do not match');
+      return;
+    }
 
     try {
       const response = await axios.post(`${backendUrl}/api/auth/signup`, formData, {
@@ -64,6 +69,15 @@ const SignupPage = () => {
         placeholder="Password" 
         required 
       />
+      <input 
+        type="password" 
+        name="confirmPassword" 
+        value={formData.confirmPassword} 
+        onChange={handleChange} 
+        placeholder="Confirm Password" 
+        required
+        />
+        
       <button type="submit">SignUp</button>
 
       {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}

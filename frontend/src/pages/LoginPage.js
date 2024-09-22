@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import {useNavigate} from 'react-router-dom';
+
+
 
 const LoginPage = () => {
   const [formData, setFormData] = useState({
@@ -8,7 +11,7 @@ const LoginPage = () => {
   });
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-
+  const navigate = useNavigate();
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -22,6 +25,7 @@ const LoginPage = () => {
       const response = await axios.post('http://localhost:5000/api/auth/login', formData);
       setSuccessMessage('Login successful!');
       console.log(response.data);
+      navigate('/home');
     } catch (error) {
       console.error('Error logging in:', error);
       setErrorMessage('Login failed. Please check your credentials.');
