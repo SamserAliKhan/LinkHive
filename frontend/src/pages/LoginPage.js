@@ -25,7 +25,7 @@ const LoginPage = () => {
       const response = await axios.post('http://localhost:5000/api/auth/login', formData);
       setSuccessMessage('Login successful!');
       console.log(response.data);
-      navigate('/home');
+      navigate('/home');//navigating to home page after successful login
     } catch (error) {
       console.error('Error logging in:', error);
       setErrorMessage('Login failed. Please check your credentials.');

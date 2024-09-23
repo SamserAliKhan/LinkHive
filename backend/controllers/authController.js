@@ -1,6 +1,8 @@
 import bycrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import User from '../models/userModel.js';
+import {auth} from '../config/firebase-config.js';
+import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 
 export const sginup = async (req, res) => {
     const { username, email, password } = req.body;
@@ -29,5 +31,18 @@ export const login = async (req, res) => {
     } catch (error) {
       console.error('Error logging in:', error);
       res.status(500).json({ message: 'Error logging in', error });
+    }
+  };
+
+  export const sendOTP = async (req, res) => {
+    const { phoneNumber } = req.body;
+  
+    try {
+      const appVerifier = new RecaptchaVerifier('recaptcha-container', {}, auth);
+      const confirmationResult = await signInWithPhoneNumber(auth, phoneNumber, appVerifier);
+      res.status(200).json({ verificationId: confirmationResult.verificationId });
+    } catch (error) {
+      console.error(error.message);
+      res.status(500).json({ message: 'Error sending OTP', error });
     }
   };

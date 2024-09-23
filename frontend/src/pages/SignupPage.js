@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { Navigate } from 'react-router-dom';
 
 const backendUrl = "http://localhost:5000";
 
@@ -34,6 +35,7 @@ const SignupPage = () => {
       console.log('Signup successful:', response.data);
       setSuccessMessage('Signup successful!');
       setErrorMessage('');  // Clear any previous error messages
+      Navigate('/OTP');//navigating to OTP page after successful signup
     } catch (error) {
       // Handle error response
       console.error('Signup failed:', error.response?.data || error.message);
