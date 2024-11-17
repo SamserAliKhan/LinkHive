@@ -57,4 +57,7 @@ body {
   nav a {
     margin-right: 15px;
   }
-  
+  .main-content {
+    margin-left: 200px; /* Offset for the sidebar on the left side */
+    padding: 20px;
+}

@@ -2,20 +2,20 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import SignupPage from './pages/SignupPage';
 import LoginPage from './pages/LoginPage';
-import Navbar from './components/Navbar';
-import HomePage from './pages/HomePage';
+import LandingPage from './pages/LandingPage';
 import OTPPage from './pages/OTPPage';
+import Dashboard from './pages/Dashboard'; // Add the Dashboard route
 import './styles/main.css';
 
 const App = () => {
   return (
     <Router>
-      <Navbar />
       <Routes>
+        <Route path="/" element={<LandingPage />} />
         <Route path="/signup" element={<SignupPage />} />
-        <Route path="/OTP" element={<OTPPage/>} />
+        <Route path="/OTP" element={<OTPPage />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/home" element={<HomePage />} />
+        <Route path="/dashboard/*" element={<Dashboard />} /> {/* Nested routes */}
       </Routes>
     </Router>
   );
