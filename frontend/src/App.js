@@ -5,6 +5,7 @@ import LoginPage from './pages/LoginPage';
 import LandingPage from './pages/LandingPage';
 import OTPPage from './pages/OTPPage';
 import Dashboard from './pages/Dashboard'; // Add the Dashboard route
+import AddLinks from './pages/AddLink';
 import './styles/main.css';
 
 const App = () => {
@@ -16,6 +17,7 @@ const App = () => {
         <Route path="/OTP" element={<OTPPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/dashboard/*" element={<Dashboard />} /> {/* Nested routes */}
+        <Route path="/AddLink"element={<AddLinks/>}/>
       </Routes>
     </Router>
   );

@@ -1,12 +1,15 @@
 import express from 'express';
-import { sginup,login } from '../controllers/authController.js';
-import { sendOTP } from '../controllers/authController.js';
 
+// Import controllers
+import { signup } from '../controllers/auth/signupController.js'; // Updated path for modularized signup
+import { login } from '../controllers/auth/loginController.js';   // Updated path for modularized login
+import { sendOTP } from '../controllers/auth/otpController.js';   // Updated path for modularized OTP sending
 
 const router = express.Router();
 
-router.post('/signup', sginup);
-router.post('/login', login);
-router.post('/send-otp', sendOTP);
+// Routes
+router.post('/signup', signup); // Route for user signup
+router.post('/login', login);   // Route for user login
+router.post('/send-otp', sendOTP); // Route for sending OTP
 
 export default router;
