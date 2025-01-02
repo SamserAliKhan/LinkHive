@@ -1,62 +1,86 @@
-import React, { useState } from 'react';
-import { auth } from '../Config/Firebase';
-import { RecaptchaVerifier, signInWithPhoneNumber, PhoneAuthProvider } from 'firebase/auth';
+import React, { useState } from "react";
 
 const OTPPage = () => {
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [otp, setOtp] = useState('');
-  const [verificationId, setVerificationId] = useState('');
-
-  const setUpRecaptcha = () => {
-    window.recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', {}, auth);
-  };
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [otp, setOtp] = useState("");
+  const [otpSent, setOtpSent] = useState(false);
 
   const handleSendOtp = async (e) => {
     e.preventDefault();
-    setUpRecaptcha();
 
-    const appVerifier = window.recaptchaVerifier;
     try {
-      const confirmationResult = await signInWithPhoneNumber(auth, phoneNumber, appVerifier);
-      setVerificationId(confirmationResult.verificationId);
-      alert('OTP sent!');
+      const response = await fetch("http://localhost:5000/api/otp/send", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ mobileNumber: phoneNumber }),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        setOtpSent(true);
+        alert("OTP sent successfully!");
+      } else {
+        alert("Failed to send OTP. Please try again.");
+        console.log(result.error);
+        
+      }
     } catch (error) {
-      console.error('Error during signInWithPhoneNumber', error);
+      console.error("Error sending OTP:", error);
+      alert("Failed to send OTP. Please try again.");
     }
   };
 
   const handleVerifyOtp = async (e) => {
     e.preventDefault();
-    const credential = PhoneAuthProvider.credential(verificationId, otp);
+
     try {
-      await auth.signInWithCredential(credential);
-      alert('User signed in!');
+      const response = await fetch("http://localhost:5000/api/otp/verify", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ mobileNumber: phoneNumber, otp }),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        alert("OTP verified successfully! User authenticated.");
+      } else {
+        alert("Please enter the correct OTP.");
+      }
     } catch (error) {
-      console.error('Error verifying OTP', error);
+      console.error("Error verifying OTP:", error);
+      alert("Failed to verify OTP. Please try again.");
     }
   };
 
   return (
     <div>
-      <div id="recaptcha-container"></div>
-      <form onSubmit={handleSendOtp}>
-        <input 
-          type="text" 
-          placeholder="Phone Number" 
-          value={phoneNumber} 
-          onChange={(e) => setPhoneNumber(e.target.value)} 
-          required 
-        />
-        <button type="submit">Send OTP</button>
-      </form>
-      {verificationId && (
+      {!otpSent ? (
+        <form onSubmit={handleSendOtp}>
+          <h2>Send OTP</h2>
+          <input
+            type="text"
+            placeholder="Phone Number"
+            value={phoneNumber}
+            onChange={(e) => setPhoneNumber(e.target.value)}
+            required
+          />
+          <button type="submit">Send OTP</button>
+        </form>
+      ) : (
         <form onSubmit={handleVerifyOtp}>
-          <input 
-            type="text" 
-            placeholder="Enter OTP" 
-            value={otp} 
-            onChange={(e) => setOtp(e.target.value)} 
-            required 
+          <h2>Verify OTP</h2>
+          <input
+            type="text"
+            placeholder="Enter OTP"
+            value={otp}
+            onChange={(e) => setOtp(e.target.value)}
+            required
           />
           <button type="submit">Verify OTP</button>
         </form>
