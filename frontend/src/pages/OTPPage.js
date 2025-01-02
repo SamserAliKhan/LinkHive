@@ -1,9 +1,11 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const OTPPage = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [otp, setOtp] = useState("");
   const [otpSent, setOtpSent] = useState(false);
+  const navigate = useNavigate();
 
   const handleSendOtp = async (e) => {
     e.preventDefault();
@@ -46,11 +48,13 @@ const OTPPage = () => {
       });
 
       const result = await response.json();
-
       if (response.ok) {
         alert("OTP verified successfully! User authenticated.");
+        navigate("/dashboard");
       } else {
         alert("Please enter the correct OTP.");
+        console.log(result.error);
+        
       }
     } catch (error) {
       console.error("Error verifying OTP:", error);
