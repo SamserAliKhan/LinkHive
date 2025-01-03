@@ -18,15 +18,21 @@ const AddLinks = () => {
     setErrorMessage(""); // Clear previous error messages
 
     // Prepare the form data
+
+    // The form data is created here in statci where you are posting the data to the same userID 
+    //which we need to change and have dynamic user id 
+    //that can be done by getting the user id from the local storage and passing it to the form data 
+    //someting through jwt token or any other way
+
     const formData = {
       title,
       url,
       description,
       tags: tags.split(",").map((tag) => tag.trim()), // Split tags by comma
-      userId: "your-user-id", // Replace with actual user ID (CHANGE #1)
+      userId: "64eecf0d12345abc67890def", // Replace with actual user ID
     };
 
-    console.log("Form Data:", formData); // Debugging payload (CHANGE #2)
+    console.log("Form Data:", formData); // Debugging payload
 
     try {
       const response = await axios.post(
@@ -34,11 +40,11 @@ const AddLinks = () => {
         formData
       );
 
-      console.log("Response Data:", response.data); // Debugging API response (CHANGE #3)
+      console.log("Response Data:", response.data); // Debugging API response
       setSuccessMessage("Link added successfully!");
-      setTimeout(() => navigate("/dashboard"), 1000); // Slight delay for better UX (CHANGE #4)
+      setTimeout(() => navigate("/dashboard"), 1000); // Slight delay for better UX
     } catch (error) {
-      // Improved error handling with detailed logging (CHANGE #5)
+      // Improved error handling with detailed logging
       if (error.response) {
         console.log("Server Error:", error.response.data);
         setErrorMessage(error.response.data.message || "Failed to add link.");
