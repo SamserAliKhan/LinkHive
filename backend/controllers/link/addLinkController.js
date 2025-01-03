@@ -18,7 +18,9 @@ export const addLink = async (req, res) => {
             tags,
             createdAt: new Date(),
         });
-
+        //Debuging 
+        console.log(newLink);
+        
         // Save the link to the database
         await newLink.save();
 

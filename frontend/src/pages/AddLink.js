@@ -3,44 +3,57 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const AddLinks = () => {
-  const [title, setTitle] = useState('');
-  const [url, setUrl] = useState('');
-  const [description, setDescription] = useState('');
-  const [tags, setTags] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+  const [title, setTitle] = useState("");
+  const [url, setUrl] = useState("");
+  const [description, setDescription] = useState("");
+  const [tags, setTags] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setSuccessMessage(''); // Clear previous success messages
-    setErrorMessage(''); // Clear previous error messages
+    setSuccessMessage(""); // Clear previous success messages
+    setErrorMessage(""); // Clear previous error messages
 
     // Prepare the form data
     const formData = {
       title,
       url,
       description,
-      tags: tags.split(',').map(tag => tag.trim()), // Split tags by comma
+      tags: tags.split(",").map((tag) => tag.trim()), // Split tags by comma
+      userId: "your-user-id", // Replace with actual user ID (CHANGE #1)
     };
 
+    console.log("Form Data:", formData); // Debugging payload (CHANGE #2)
+
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/addLink', formData);
+      const response = await axios.post(
+        "http://localhost:5000/api/link/addlink", // Ensure this URL is correct
+        formData
+      );
+
+      console.log("Response Data:", response.data); // Debugging API response (CHANGE #3)
       setSuccessMessage("Link added successfully!");
-      console.log(response.data);
-      navigate('/dashboard'); // Navigate to the dashboard after successful addition
+      setTimeout(() => navigate("/dashboard"), 1000); // Slight delay for better UX (CHANGE #4)
     } catch (error) {
-      console.log("Error in Adding Link:", error);
-      setErrorMessage("Failed to add link. Please try again.");
+      // Improved error handling with detailed logging (CHANGE #5)
+      if (error.response) {
+        console.log("Server Error:", error.response.data);
+        setErrorMessage(error.response.data.message || "Failed to add link.");
+      } else {
+        console.log("Error in Adding Link:", error.message);
+        setErrorMessage("Failed to add link. Please try again.");
+      }
     }
   };
 
   return (
     <form onSubmit={handleSubmit}>
       <h2>Add Link</h2>
-      {successMessage && <div style={{ color: 'green' }}>{successMessage}</div>}
-      {errorMessage && <div style={{ color: 'red' }}>{errorMessage}</div>}
+      {successMessage && <div style={{ color: "green" }}>{successMessage}</div>}
+      {errorMessage && <div style={{ color: "red" }}>{errorMessage}</div>}
 
       <div>
         <label htmlFor="title">Title</label>
