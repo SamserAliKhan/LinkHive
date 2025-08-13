@@ -5,9 +5,13 @@ import authRoutes from './routes/authRoutes.js';
 import cors from 'cors';
 import linkRouters from './routes/linkRoutes.js';
 import otpRouter from './routes/otpRoutes.js';
+import connectDB from './config/mongoDB.js';
 
 dotenv.config();
 const app = express();
+
+//database connection
+connectDB();
 
 //Middleware
 app.use(express.json());
@@ -20,10 +24,6 @@ app.use('/api/auth', authRoutes);
 app.use('/api/link', linkRouters);
 app.use('/api/otp', otpRouter);
 
-//database connection
-mongoose.connect(process.env.MONGO_URI,)
-    .then(() => console.log('Database connected'))
-    .catch((err) => console.error('Database connection error:', err));
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => {
