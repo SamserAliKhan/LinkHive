@@ -1,4 +1,4 @@
-import OTPService from "../../utils/otpServices.js";
+import OTPService from "../../Auth/services/otpServices.js";
 
 // This function sends an OTP to the user's mobile number
 export const sendOTP = async (req, res) => {

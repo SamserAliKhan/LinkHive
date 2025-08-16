@@ -1,10 +1,10 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
-import authRoutes from './routes/authRoutes.js';
+import authRoutes from './Auth/Routes/authRoutes.js';
 import cors from 'cors';
 import linkRouters from './routes/linkRoutes.js';
-import otpRouter from './routes/otpRoutes.js';
+import otpRouter from './Auth/Routes/otpRoutes.js';
 import connectDB from './config/mongoDB.js';
 
 dotenv.config();

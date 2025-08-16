@@ -1,4 +1,4 @@
-import otpServices from "../../utils/otpServices.js";
+import otpServices from "../../Auth/services/otpServices.js";
 
 // This function verifies the OTP sent by the user
 export const verifyOTP = async (req, res) => {
