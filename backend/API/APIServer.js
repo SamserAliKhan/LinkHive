@@ -1,7 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
-import linkRouters from ".././routes/linkRoutes.js";
+// import linkRouters from ".././routes/linkRoutes.js";
 import connectDB from "./config/mongoDB.js";
 import authProxyRoutes from "./routes/authProxyRoutes.js";
 
@@ -40,7 +40,7 @@ app.use((req, res, next) => {
 // --------------------
 
 // Main API routes
-app.use("/api/link", linkRouters);
+// app.use("/api/link", linkRouters);
 
 // Auth routes (proxied to Auth Service)
 app.use("/auth", authProxyRoutes);

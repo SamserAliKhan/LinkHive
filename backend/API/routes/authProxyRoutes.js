@@ -5,9 +5,25 @@ const router = express.Router();
 
 router.use(
   "/otp",
-  proxy(`http://localhost:${process.env.AUTH_PORT || 5001}`, {
+  proxy(process.env.AUTH_PORT || `http://localhost:5001`, {
     proxyReqPathResolver: (req) =>
       req.originalUrl.replace(/^\/auth/, "/authOTP"),
+  })
+);
+
+router.use(
+  "/login",
+  proxy(process.env.AUTH_PORT|| `http://localhost:5001`, {
+    proxyReqPathResolver: (req) =>
+      req.originalUrl.replace(/^auth/, "/auth")
+  })
+);
+
+router.use(
+  "/signup",
+  proxy(process.env.AUTH_PORT || `http://localhost:5001`, {
+    proxyReqPathResolver: (req) =>
+      req.originalUrl.replace(/^auth/, "/auth")
   })
 );
 
