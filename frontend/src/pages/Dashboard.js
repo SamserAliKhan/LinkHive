@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 // import { Link } from 'react-router-dom';
 import DashboardHome from '../components/DashboardHome'; // Import the DashboardHome component
-import Sidebar from '../components/sidebar';// Import Sidebar component
+import Sidebar from '../components/Sidebar';// Import Sidebar component
 
 const DashboardPage = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(true); // Define the sidebar state

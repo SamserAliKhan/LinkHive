@@ -9,6 +9,10 @@
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
+<<<<<<< HEAD
+=======
+    "cors": "^2.8.5",
+>>>>>>> 2e9369b4171867067b888ac78a23f48e9743d00a
     "dotenv": "^16.4.5",
     "express": "^4.21.0",
     "jsonwebtoken": "^9.0.2",
