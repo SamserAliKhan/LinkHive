@@ -1,7 +1,6 @@
   import React, { useState } from 'react';
-  import axios from 'axios';
   import {useNavigate} from 'react-router-dom';
-
+  import api from '../Config/axiosConfig';
 
 
   const LoginPage = () => {
@@ -22,7 +21,10 @@
       setErrorMessage('');
 
       try {
-        const response = await axios.post('http://localhost:5000/api/auth/login', formData);
+        const response = await api.post(
+          "/auth/login",
+          formData
+        );
         setSuccessMessage('Login successful!');
         console.log(response.data);
         navigate('/dashboard'); // navigating to dashboard page after successful login

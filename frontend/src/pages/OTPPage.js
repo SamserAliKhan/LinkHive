@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import api from "../Config/axiosConfig";
 
 const OTPPage = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -11,23 +12,18 @@ const OTPPage = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:5000/api/otp/send", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ mobileNumber: phoneNumber }),
+      const response = await api.post("auth/otp/send", {
+        mobileNumber: phoneNumber,
       });
-
-      const result = await response.json();
+      const result = response.data;
 
       if (response.ok) {
         setOtpSent(true);
         alert("OTP sent successfully!");
+        console.log(result); // for debugging
       } else {
         alert("Failed to send OTP. Please try again.");
         console.log(result.error);
-        
       }
     } catch (error) {
       console.error("Error sending OTP:", error);
@@ -39,15 +35,9 @@ const OTPPage = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:5000/api/otp/verify", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ mobileNumber: phoneNumber, otp }),
-      });
-
-      const result = await response.json();
+      
+      const response = await api.post("auth/otp/verify", { mobileNumber: phoneNumber, otp });
+      const result = response.data;
       if (response.ok) {
         alert("OTP verified successfully! User authenticated.");
         navigate("/dashboard");

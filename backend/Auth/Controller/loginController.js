@@ -27,14 +27,14 @@ export const login = async (req, res) => {
       //4.Send tokens as **HTTP-only cookies**
         res.cookie("accessToken", AccessToken, {
           httpOnly: true,
-          secure: process.env.NODE_ENV === "production",
-          sameSite: process.env.COOKIE_SAMESITE || "Strict",
+          secure: process.env.NODE_ENV === "true",
+          sameSite: process.env.COOKIE_SAMESITE || "None",
           maxAge: 15 * 60 * 1000, // 15 minutes
         });
         res.cookie("refreshToken", RefreshToken, {
           httpOnly: true,
-          secure: process.env.NODE_ENV === "production",
-          sameSite: process.env.COOKIE_SAMESITE || "Strict",
+          secure: process.env.NODE_ENV === "true",
+          sameSite: process.env.COOKIE_SAMESITE || "None",
           maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
           path: '/auth/refresh', // Ensure the cookie is accessible across the application
         });

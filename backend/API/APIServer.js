@@ -1,6 +1,8 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
+import corsOptions from "./config/corsConfig.js";
+import cookieParser from "cookie-parser";
 // import linkRouters from ".././routes/linkRoutes.js";
 import connectDB from "./config/mongoDB.js";
 import authProxyRoutes from "./routes/authProxyRoutes.js";
@@ -21,7 +23,8 @@ connectDB();
 app.use(express.json());
 
 // Enable CORS
-app.use(cors());
+app.use(cors(corsOptions)); //CORS middleware 
+app.use(cookieParser());
 
 // Logger for all incoming requests
 app.use((req, res, next) => {
