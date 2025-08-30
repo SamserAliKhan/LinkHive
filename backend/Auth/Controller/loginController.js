@@ -40,6 +40,8 @@ export const login = async (req, res) => {
         });
         // Debugging
         console.log(res.getHeaders()["set-cookie"]);
+        console.log("Cookies:", req.cookies);
+
         //5.Send response
         res.status(200).json({
           message: "Login successful",

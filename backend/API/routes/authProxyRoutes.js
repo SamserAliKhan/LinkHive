@@ -1,5 +1,4 @@
 import express from "express";
-import proxy from "express-http-proxy";
 import { createProxy } from "../config/proxyConfig.js";
 
 const router = express.Router();

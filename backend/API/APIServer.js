@@ -6,6 +6,7 @@ import cookieParser from "cookie-parser";
 // import linkRouters from ".././routes/linkRoutes.js";
 import connectDB from "./config/mongoDB.js";
 import authProxyRoutes from "./routes/authProxyRoutes.js";
+import authMiddleware from "./Middleware/authMiddleware.js";
 
 dotenv.config();
 const app = express();
@@ -47,6 +48,9 @@ app.use((req, res, next) => {
 
 // Auth routes (proxied to Auth Service)
 app.use("/auth", authProxyRoutes);
+
+// Private routes → protect with middleware
+// app.use("/api", authMiddleware, apiRoutes);
 
 // --------------------
 // Start server

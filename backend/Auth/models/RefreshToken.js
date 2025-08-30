@@ -1,4 +1,3 @@
-import { create } from 'domain';
 import mongoose from 'mongoose';
 const refreshTokenSchema = new mongoose.Schema({
     userID: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
