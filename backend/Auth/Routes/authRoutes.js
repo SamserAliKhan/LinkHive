@@ -4,7 +4,7 @@ import express from 'express';
 import { signup } from '../Controller/signupController.js'; // Path for modularized signup
 import { login } from '../Controller/loginController.js';   // Path for modularized login
 import { refresh } from '../Controller/refreshController.js'; // Path for Rotation of RT
-import { logout } from '../Controller/logotcontroller.js'; // Path for modularized logot
+import { logout } from '../Controller/logotController.js'; // Path for modularized logot
 
 const router = express.Router();
 
