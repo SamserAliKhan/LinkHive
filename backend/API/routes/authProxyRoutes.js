@@ -13,13 +13,19 @@ router.use(
 // Login route
 router.use(
   "/login",
-  createProxy(authServiceUrl, /^\/auth/, "/auth")
+  createProxy(authServiceUrl)
+);
+
+//Logout route
+router.use(
+  "/logout",
+  createProxy(authServiceUrl)
 );
 
 // Signup route
 router.use(
   "/signup",
-  createProxy(authServiceUrl, /^\/auth/, "/auth")
+  createProxy(authServiceUrl)
 );
 
 export default router;
