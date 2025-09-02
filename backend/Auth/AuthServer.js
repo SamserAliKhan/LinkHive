@@ -5,7 +5,7 @@ import cookieParser from "cookie-parser";
 import connectDB from "./config/mongoDB.js";
 import otpRouter from "./Routes/otpRoutes.js";
 import authRoutes from "./Routes/authRoutes.js";
-import authMiddleware from "./middleware/authMiddleware.js";
+// import authMiddleware from "./middleware/authMiddleware.js";
 
 dotenv.config();
 const app = express();
@@ -18,9 +18,9 @@ app.use(cors());
 app.use(express.json()); // middleware to parse JSON bodies
 app.use(cookieParser()); // middleware to parse cookies
 
-app.get("/test/protected", authMiddleware, (req, res) => {
-  res.json({ message: "Protected OK", user: req.user });
-});
+// app.get("/test/protected", authMiddleware, (req, res) => {
+//   res.json({ message: "Protected OK", user: req.user });
+// });
 
 
 // Logger

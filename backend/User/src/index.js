@@ -7,7 +7,7 @@ import userRoutes from './routes/UserRoute.js';
 import internalRouteouter from './routes/internalRoute.js';
 
 // Load environment variables
-dotenv.config();
+dotenv.config({ quiet: true });
 
 // Initialize express app
 const app = express();
