@@ -4,7 +4,10 @@ import User from "../models/userModel.js"; // your Auth DB user model
 
 export const signup = async (req, res) => {
   const { username, email, password } = req.body;
-
+  const user = await User.findOne({email});
+  if(user){
+    return res.status(400).json({message: "User alrady exist please Login"})
+  }
   try {
     // 1. Hash password
     const hashedPassword = await bcrypt.hash(password, 10);

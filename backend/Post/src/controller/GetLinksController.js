@@ -10,7 +10,7 @@ const getLinks = async (req, res) => {
     }
 
     const links = await Link.find({ userId }).sort({ createdAt: -1 });
-    res.json(links);
+    res.status(200).json(links);
   } catch (err) {
     console.error("Error fetching links:", err);
     res.status(500).json({ message: "Failed to fetch links" });
