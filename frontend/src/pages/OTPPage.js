@@ -1,54 +1,45 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import api from "../Config/axiosConfig";
+import { sendOTP, verifyOTP, handleApiCall } from "../services/apiService";
 
 const OTPPage = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [otp, setOtp] = useState("");
   const [otpSent, setOtpSent] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSendOtp = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
 
     try {
-      const response = await api.post("auth/otp/send", {
-        mobileNumber: phoneNumber,
-      });
-      const result = response.data;
-
-      if (response.ok) {
-        setOtpSent(true);
-        alert("OTP sent successfully!");
-        console.log(result); // for debugging
-      } else {
-        alert("Failed to send OTP. Please try again.");
-        console.log(result.error);
-      }
+      const result = await handleApiCall(sendOTP, phoneNumber);
+      setOtpSent(true);
+      alert("OTP sent successfully!");
+      console.log(result); // for debugging
     } catch (error) {
-      console.error("Error sending OTP:", error);
-      alert("Failed to send OTP. Please try again.");
+      console.error("Error sending OTP:", error.message);
+      alert(error.message || "Failed to send OTP. Please try again.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const handleVerifyOtp = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
 
     try {
-      
-      const response = await api.post("auth/otp/verify", { mobileNumber: phoneNumber, otp });
-      const result = response.data;
-      if (response.ok) {
-        alert("OTP verified successfully! User authenticated.");
-        navigate("/dashboard");
-      } else {
-        alert("Please enter the correct OTP.");
-        console.log(result.error);
-        
-      }
+      const result = await handleApiCall(verifyOTP, phoneNumber, otp);
+      alert("OTP verified successfully! User authenticated.");
+      console.log(result); // for debugging
+      navigate("/dashboard");
     } catch (error) {
-      console.error("Error verifying OTP:", error);
-      alert("Failed to verify OTP. Please try again.");
+      console.error("Error verifying OTP:", error.message);
+      alert(error.message || "Failed to verify OTP. Please try again.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -64,7 +55,9 @@ const OTPPage = () => {
             onChange={(e) => setPhoneNumber(e.target.value)}
             required
           />
-          <button type="submit">Send OTP</button>
+          <button type="submit" disabled={isLoading}>
+            {isLoading ? "Sending..." : "Send OTP"}
+          </button>
         </form>
       ) : (
         <form onSubmit={handleVerifyOtp}>
@@ -76,7 +69,9 @@ const OTPPage = () => {
             onChange={(e) => setOtp(e.target.value)}
             required
           />
-          <button type="submit">Verify OTP</button>
+          <button type="submit" disabled={isLoading}>
+            {isLoading ? "Verifying..." : "Verify OTP"}
+          </button>
         </form>
       )}
     </div>

@@ -13,8 +13,10 @@ const DashboardHome = () => {
       <h2 className="text-3xl font-bold text-gray-800 text-center">Your Features</h2>
       <div className="mt-8 grid gap-8 md:grid-cols-2 lg:grid-cols-4">
         {[
-          { title: 'Add New Link', description: 'Create and organize your links.' },
+          { title: 'Add New Link', description: 'Create and organize your links.', path: '/addLink' },
+          { title: 'View All Links', description: 'Manage your existing links.', path: '/links' },
           { title: 'Analytics', description: 'View your link performance.' },
+          { title: 'Profile', description: 'Manage your account settings.', path: '/profile' },
         ].map((feature, index) => (
           <div
             key={index}
@@ -22,7 +24,13 @@ const DashboardHome = () => {
           >
             <h3
               className="text-xl font-semibold text-gray-800 cursor-pointer"
-              onClick={feature.title === 'Add New Link' ? handleAddLinkClick : null}
+              onClick={() => {
+                if (feature.title === 'Add New Link') {
+                  handleAddLinkClick();
+                } else if (feature.path) {
+                  navigate(feature.path);
+                }
+              }}
             >
               {feature.title}
             </h3>

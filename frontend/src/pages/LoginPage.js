@@ -1,6 +1,6 @@
   import React, { useState } from 'react';
   import {useNavigate} from 'react-router-dom';
-  import api from '../Config/axiosConfig';
+  import { login, handleApiCall } from '../services/apiService';
 
 
   const LoginPage = () => {
@@ -10,6 +10,7 @@
     });
     const [successMessage, setSuccessMessage] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
     const handleChange = (e) => {
       setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -19,19 +20,18 @@
       e.preventDefault();
       setSuccessMessage(''); // Clear previous messages
       setErrorMessage('');
+      setIsLoading(true);
 
       try {
-        const response = await api.post(
-          "/auth/login",
-          formData
-        );
+        const result = await handleApiCall(login, formData);
         setSuccessMessage('Login successful!');
-        console.log(response.data);
+        console.log(result);
         navigate('/dashboard'); // navigating to dashboard page after successful login
-
       } catch (error) {
-        console.error('Error logging in:', error);
-        setErrorMessage('Login failed. Please check your credentials.');
+        console.error('Error logging in:', error.message);
+        setErrorMessage(error.message || 'Login failed. Please check your credentials.');
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -56,7 +56,9 @@
           placeholder="Password" 
           required 
         />
-        <button type="submit">Login</button>
+        <button type="submit" disabled={isLoading}>
+          {isLoading ? 'Logging in...' : 'Login'}
+        </button>
       </form>
     );
   };

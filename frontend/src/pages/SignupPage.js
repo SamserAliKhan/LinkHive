@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-
-const backendUrl = "http://localhost:5000";
+import { signup, handleApiCall } from '../services/apiService';
 
 const SignupPage = () => {
   const [formData, setFormData] = useState({
@@ -15,6 +13,8 @@ const SignupPage = () => {
 
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -27,21 +27,27 @@ const SignupPage = () => {
       return;
     }
 
+    setIsLoading(true);
+    setErrorMessage('');
+    setSuccessMessage('');
+
     try {
-      const response = await axios.post(`${backendUrl}/api/auth/signup`, formData, {
-        headers: { 'Content-Type': 'application/json' }
-      });
+      // Remove confirmPassword before sending to backend
+      const { confirmPassword, ...signupData } = formData;
+      const result = await handleApiCall(signup, signupData);
       
-      // Handle success response
-      console.log('Signup successful:', response.data);
+      console.log('Signup successful:', result);
       setSuccessMessage('Signup successful!');
-      setErrorMessage('');  // Clear any previous error messages
-      Navigate('/OTP');//navigating to OTP page after successful signup
+      
+      // Navigate to OTP page after successful signup
+      setTimeout(() => {
+        navigate('/OTP');
+      }, 1000);
     } catch (error) {
-      // Handle error response
-      console.error('Signup failed:', error.response?.data || error.message);
-      setErrorMessage('Signup failed. Please try again Letter.');
-      setSuccessMessage('');  // Clear any previous success messages
+      console.error('Signup failed:', error.message);
+      setErrorMessage(error.message || 'Signup failed. Please try again.');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -81,7 +87,9 @@ const SignupPage = () => {
         required
         />
         
-      <button type="submit">SignUp</button>
+      <button type="submit" disabled={isLoading}>
+        {isLoading ? 'Signing Up...' : 'SignUp'}
+      </button>
 
       {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
       {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}

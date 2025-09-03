@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { addLink, handleApiCall } from "../services/apiService";
 
 const AddLinks = () => {
   const [title, setTitle] = useState("");
@@ -9,6 +9,7 @@ const AddLinks = () => {
   const [tags, setTags] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -16,42 +17,36 @@ const AddLinks = () => {
     e.preventDefault();
     setSuccessMessage(""); // Clear previous success messages
     setErrorMessage(""); // Clear previous error messages
+    setIsLoading(true);
 
-    // Prepare the form data
-
-    // The form data is created here in statci where you are posting the data to the same userID 
-    //which we need to change and have dynamic user id 
-    //that can be done by getting the user id from the local storage and passing it to the form data 
-    //someting through jwt token or any other way
-
-    const formData = {
+    // Prepare the form data - no need for hardcoded userId, 
+    // the backend will get user info from the JWT token
+    const linkData = {
       title,
       url,
       description,
-      tags: tags.split(",").map((tag) => tag.trim()), // Split tags by comma
-      userId: "64eecf0d12345abc67890def", // Replace with actual user ID
+      tags: tags.split(",").map((tag) => tag.trim()).filter(tag => tag.length > 0), // Split tags by comma and filter empty ones
     };
 
-    console.log("Form Data:", formData); // Debugging payload
+    console.log("Link Data:", linkData); // Debugging payload
 
     try {
-      const response = await axios.post(
-        "http://localhost:5000/api/link/addlink", // Ensure this URL is correct
-        formData
-      );
-
-      console.log("Response Data:", response.data); // Debugging API response
+      const result = await handleApiCall(addLink, linkData);
+      console.log("Response Data:", result); // Debugging API response
       setSuccessMessage("Link added successfully!");
+      
+      // Clear form fields on success
+      setTitle("");
+      setUrl("");
+      setDescription("");
+      setTags("");
+      
       setTimeout(() => navigate("/dashboard"), 1000); // Slight delay for better UX
     } catch (error) {
-      // Improved error handling with detailed logging
-      if (error.response) {
-        console.log("Server Error:", error.response.data);
-        setErrorMessage(error.response.data.message || "Failed to add link.");
-      } else {
-        console.log("Error in Adding Link:", error.message);
-        setErrorMessage("Failed to add link. Please try again.");
-      }
+      console.error("Error in Adding Link:", error.message);
+      setErrorMessage(error.message || "Failed to add link. Please try again.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -102,7 +97,9 @@ const AddLinks = () => {
         />
       </div>
 
-      <button type="submit">Add Link</button>
+      <button type="submit" disabled={isLoading}>
+        {isLoading ? "Adding Link..." : "Add Link"}
+      </button>
     </form>
   );
 };
