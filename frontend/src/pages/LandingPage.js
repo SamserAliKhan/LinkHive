@@ -108,18 +108,18 @@ const HomePage = () => {
       <footer className="bg-gray-800 text-white py-6 text-center">
         <p>© 2024 LinkHive. All rights reserved.</p>
         <div className="mt-2">
-          <a
-            href="#"
-            className="text-yellow-300 hover:underline mx-2"
+          <button
+            type="button"
+            className="text-yellow-300 hover:underline mx-2 bg-transparent border-none cursor-pointer"
           >
             Privacy Policy
-          </a>
-          <a
-            href="#"
-            className="text-yellow-300 hover:underline mx-2"
+          </button>
+          <button
+            type="button"
+            className="text-yellow-300 hover:underline mx-2 bg-transparent border-none cursor-pointer"
           >
             Terms of Service
-          </a>
+          </button>
         </div>
       </footer>
     </div>
