@@ -75,8 +75,8 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-yellow-50 via-white to-gray-100 dark:from-gray-950 dark:via-black dark:to-gray-900 transition-colors duration-300">
-      <main className="mx-auto max-w-7xl px-6 py-12">
+    <div className="min-h-screen bg-gradient-to-br from-yellow-200 via-yellow-100 to-gray-100 dark:from-gray-950 dark:via-black dark:to-gray-900 transition-colors duration-300">
+      <main className="mx-auto max-w-7xl px-6 py-12"> 
         {/* Header */}
         <div className="mb-10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
