@@ -1,26 +1,12 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import SignupPage from './pages/SignupPage';
-import LoginPage from './pages/LoginPage';
-import LandingPage from './pages/LandingPage';
-import OTPPage from './pages/OTPPage';
-import Dashboard from './pages/Dashboard'; // Add the Dashboard route
-import AddLinks from './pages/AddLink';
-import './styles/main.css';
+// src/App.jsx
+import React from "react";
+import AppRouter from "./Routes/AppRouter";
+import { AuthProvider } from "./Context/AuthContext";
 
-const App = () => {
+export default function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/signup" element={<SignupPage />} />
-        <Route path="/OTP" element={<OTPPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/dashboard/*" element={<Dashboard />} /> {/* Nested routes */}
-        <Route path="/AddLink"element={<AddLinks/>}/>
-      </Routes>
-    </Router>
+    <AuthProvider>
+      <AppRouter />
+    </AuthProvider>
   );
-};
-
-export default App;
+}
