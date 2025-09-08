@@ -17,7 +17,7 @@ connectDB();
 app.use(cors());
 app.use(express.json()); // middleware to parse JSON bodies
 app.use(cookieParser()); // middleware to parse cookies
-
+// app.use(authMiddleware());
 // app.get("/test/protected", authMiddleware, (req, res) => {
 //   res.json({ message: "Protected OK", user: req.user });
 // });

@@ -5,7 +5,7 @@ export default function Profile() {
   const user = { name: "Samser Ali Khan", email: "you@example.com" };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-yellow-50 via-white to-gray-100 dark:from-gray-950 dark:via-black dark:to-gray-900 transition-colors duration-300">
+    <div className="min-h-screen bg-gradient-to-br from-yellow-200 via-yellow-100 to-gray-100 dark:from-gray-950 dark:via-black dark:to-gray-900 transition-colors duration-300">
       {/* <Navbar user={user} /> */}
       <main className="mx-auto max-w-4xl px-4 py-12">
         {/* Page header */}

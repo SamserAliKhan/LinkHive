@@ -1,7 +1,8 @@
 import { useState } from "react";
+import { signup } from "../APIs/Api"; 
 
 export default function Signup() {
-  const [form, setForm] = useState({ name: "", email: "", password: "" });
+  const [form, setForm] = useState({ username: "", email: "", password: "" });
   const [loading, setLoading] = useState(false);
   const [msg, setMsg] = useState("");
 
@@ -9,13 +10,15 @@ export default function Signup() {
     const { name, value } = e.target;
     setForm((f) => ({ ...f, [name]: value }));
   };
-
+//Test@Test
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setMsg("");
     try {
-      setMsg("Signed up (mock). Redirect to OTP when API is wired.");
+      await signup(form);
+      setMsg("Signed up successfully.");
+      window.location.href = "/dashboard";
     } catch (err) {
       setMsg(err?.message || "Signup failed");
     } finally {
@@ -44,8 +47,8 @@ export default function Signup() {
               Name
             </label>
             <input
-              name="name"
-              value={form.name}
+              name="username"
+              value={form.username}
               onChange={handleChange}
               className="w-full rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 px-3 py-2 shadow-sm outline-none focus:ring-2 focus:ring-yellow-400"
               placeholder="Your name"
