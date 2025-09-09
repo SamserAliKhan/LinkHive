@@ -1,9 +1,22 @@
-# LinkHive
+<div align="center">
 
-![Build Status](https://img.shields.io/github/actions/workflow/status/SamserAliKhan/LinkHive/CICD.yml?branch=master)
-![License](https://img.shields.io/github/license/SamserAliKhan/LinkHive)
-![Contributions](https://img.shields.io/github/contributors/SamserAliKhan/LinkHive)
+# 🐝 LinkHive
 
+**A scalable microservices system with a custom-built Node.js API Gateway.**  
+_Easily route, manage, and secure API requests via a single entry point. Designed for extensibility, learning, and control._
+
+[![GitHub Stars](https://img.shields.io/github/stars/SamserAliKhan/LinkHive?style=flat-square&color=yellow)](https://github.com/SamserAliKhan/LinkHive/stargazers)
+[![GitHub Forks](https://img.shields.io/github/forks/SamserAliKhan/LinkHive?style=flat-square&color=orange)](https://github.com/SamserAliKhan/LinkHive/network/members)
+[![GitHub Issues](https://img.shields.io/github/issues/SamserAliKhan/LinkHive?style=flat-square&color=critical)](https://github.com/SamserAliKhan/LinkHive/issues)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green?style=flat-square)](LICENSE)
+![Node.js](https://img.shields.io/badge/Node.js-16%2B-brightgreen?style=flat-square&logo=node.js)
+![Express](https://img.shields.io/badge/Express.js-4.x-blue?style=flat-square&logo=express)
+![Microservices](https://img.shields.io/badge/Architecture-Microservices-blueviolet?style=flat-square)
+![Custom Gateway](https://img.shields.io/badge/API%20Gateway-Custom%20Proxy-yellow?style=flat-square)
+
+---
+
+</div>
 ## Overview
 
 **LinkHive** is a microservices-based system featuring a custom-built API Gateway for routing and managing requests between client applications and backend services. It offers a scalable, modular architecture where services are decoupled but accessible via a single entry point—simplifying client interactions and improving maintainability.
