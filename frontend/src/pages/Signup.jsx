@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { signup } from "../APIs/Api"; 
+import { useNavigate } from "react-router-dom";
 
 export default function Signup() {
   const [form, setForm] = useState({ username: "", email: "", password: "" });
   const [loading, setLoading] = useState(false);
   const [msg, setMsg] = useState("");
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -18,7 +20,7 @@ export default function Signup() {
     try {
       await signup(form);
       setMsg("Signed up successfully.");
-      window.location.href = "/dashboard";
+      navigate("/dashboard");
     } catch (err) {
       setMsg(err?.message || "Signup failed");
     } finally {

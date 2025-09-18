@@ -1,5 +1,5 @@
 // src/context/AuthContext.jsx
-import React, { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 import { getProfile, logout } from "../APIs/Api.js";
 import { useNavigate } from "react-router-dom";
 import { setLogoutHandler } from "../APIs/AxiosConfig.js";

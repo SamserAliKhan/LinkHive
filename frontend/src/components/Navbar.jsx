@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import ThemeToggle from "./ThemeToggle";
 import logo from "../images/logo.png";
+import { Link } from "react-router-dom";
 
 export default function Navbar({ user = null, onLogout }) {
   const [open, setOpen] = useState(false);
@@ -27,27 +28,29 @@ export default function Navbar({ user = null, onLogout }) {
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
         {/* Logo */}
-        <a href="/" className="flex items-center gap-2">
-          <img src={logo} alt="LinkHive Logo" className="h-10 w-10" />
-          <span className="text-lg font-bold bg-gradient-to-r from-yellow-500 to-pink-500 bg-clip-text text-transparent">
-            LinkHive
-          </span>
-        </a>
+        <Link to="/">
+          <p className="flex items-center gap-2">
+            <img src={logo} alt="LinkHive Logo" className="h-10 w-10" />
+            <span className="text-lg font-bold bg-gradient-to-r from-yellow-500 to-pink-500 bg-clip-text text-transparent">
+              LinkHive
+            </span>
+          </p>
+        </Link>
 
         {/* Desktop Navigation */}
         <nav className="hidden items-center gap-6 md:flex">
-          <a
-            href="/dashboard"
-            className="text-sm font-medium text-gray-700 hover:text-black dark:text-white dark:hover:text-yellow-300 transition-colors"
-          >
-            Dashboard
-          </a>
-          <a
-            href="/profile"
-            className="text-sm font-medium text-gray-700 hover:text-black dark:text-white dark:hover:text-yellow-300 transition-colors"
-          >
-            Profile
-          </a>
+          <Link to="/dashboard">
+            <p className="text-sm font-medium text-gray-700 hover:text-black dark:text-white dark:hover:text-yellow-300 transition-colors">
+              Dashboard
+            </p>
+          </Link>
+          <Link to="/profile">
+            <p
+              className="text-sm font-medium text-gray-700 hover:text-black dark:text-white dark:hover:text-yellow-300 transition-colors"
+            >
+              Profile
+            </p>
+          </Link>
         </nav>
 
         {/* Desktop Auth */}
@@ -68,18 +71,16 @@ export default function Navbar({ user = null, onLogout }) {
               </>
             ) : (
               <>
-                <a
-                  href="/login"
-                  className="rounded-lg border px-3 py-1 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 transition"
-                >
-                  Login
-                </a>
-                <a
-                  href="/signup"
-                  className="rounded-lg bg-gradient-to-r from-yellow-400 to-pink-500 px-3 py-1 text-sm text-white shadow-md hover:scale-105 transition"
-                >
-                  Sign up
-                </a>
+                <Link to="/login">
+                  <button className="rounded-lg border px-3 py-1 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 transition">
+                    Login
+                  </button>
+                </Link>
+                <Link to="/signup">
+                  <button className="rounded-lg bg-gradient-to-r from-yellow-400 to-pink-500 px-3 py-1 text-sm text-white shadow-md hover:scale-105 transition">
+                    Sign up
+                  </button>
+                </Link>
               </>
             )}
           </div>

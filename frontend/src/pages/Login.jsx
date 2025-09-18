@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { login } from "../APIs/Api";
+import { Link,useNavigate } from "react-router-dom";
 
 export default function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
   const [loading, setLoading] = useState(false);
   const [msg, setMsg] = useState("");
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -18,7 +20,7 @@ export default function Login() {
     try {
       await login(form);
       setMsg("Login Successfull");
-      window.location.href = "/dashboard";
+      navigate("/dashboard");
     } catch (err) {
       setMsg(err?.message || "Login failed");
     } finally {
@@ -99,14 +101,14 @@ export default function Login() {
         {/* Extra link */}
         <p className="text-center text-sm text-gray-700 dark:text-gray-400">
           New here?{" "}
-          <a
-            href="/signup"
-            className="font-medium text-yellow-600 hover:underline underline-offset-4"
-          >
-            Create an account
-          </a>
+          <Link to="/signup">
+            <span className="font-medium text-yellow-600 hover:underline underline-offset-4">
+              Create an account
+            </span>
+          </Link>
         </p>
       </main>
     </div>
   );
 }
+
