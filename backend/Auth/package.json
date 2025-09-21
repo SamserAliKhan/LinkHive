@@ -4,8 +4,8 @@
   "main": "AuthServer.js",
   "type": "module",
   "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js"
+    "start": "node AuthServer.js",
+    "dev": "nodemon AuthServer.js"
   },
   "dependencies": {
     "axios": "^1.11.0",
