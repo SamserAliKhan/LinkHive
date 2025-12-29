@@ -10,6 +10,25 @@ import userProxyRoutes from "./routes/UserProxyRoutes.js";
 import linkProxyRoutes from "./routes/linkProxyRoutes.js"; // <-- new
 
 dotenv.config();
+
+const PORT = process.env.PORT || 5000; // Render sets PORT (default 10000)
+const AUTH_HOST = process.env.AUTH_HOST || "localhost";
+const AUTH_PORT = process.env.AUTH_PORT || 5001;
+const AUTH_URL = `http://${AUTH_HOST}:${AUTH_PORT}`;
+
+const USER_HOST = process.env.USER_HOST || "localhost";
+const USER_PORT = process.env.USER_PORT || 5002;
+const USER_URL = `http://${USER_HOST}:${USER_PORT}`;
+
+const POST_HOST = process.env.POST_HOST || "localhost";
+const POST_PORT = process.env.POST_PORT || 5003;
+const POST_URL = `http://${POST_HOST}:${POST_PORT}`;
+
+console.log("Service URLs:");
+console.log("Auth Service:", AUTH_URL);
+console.log("User Service:", USER_URL);
+console.log("Post Service:", POST_URL);
+
 const app = express();
 
 // --------------------
@@ -56,7 +75,7 @@ app.use("/link", authMiddleware, linkProxyRoutes); // <-- protect Link Service
 // --------------------
 // Start server
 // --------------------
-const port = process.env.PORT || 5000;
-app.listen(port, () => {
-  console.log(`API Gateway is running on port ${port}`);
+
+app.listen(PORT, () => {
+  console.log(`API Gateway is running on port ${PORT}`);
 });

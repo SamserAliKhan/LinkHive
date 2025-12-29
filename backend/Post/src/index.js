@@ -4,7 +4,7 @@ import LinkRoutes from "./routes/LinkRoutes.js";
 import connectDB from "./config/mongodbConfig.js";
 
 // Load environment variables
-dotenv.config({ quiet: true });
+dotenv.config({ path: "../.env", quiet: true });
 
 const PORT = process.env.PORT || 5003;
 

@@ -1,13 +1,16 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+
+// Load environment variables
+dotenv.config({ path: "../.env", quiet: true });
 import cookieParser from 'cookie-parser';
 import connectDB from './config/MongoConfig.js';
 import userRoutes from './routes/UserRoute.js';
 import internalRouteouter from './routes/internalRoute.js';
 
-// Load environment variables
-dotenv.config({ quiet: true });
+
+console.log(`checking for PORT: ${process.env.PORT}`);
 
 // Initialize express app
 const app = express();
