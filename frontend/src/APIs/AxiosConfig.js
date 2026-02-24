@@ -8,7 +8,7 @@ export const setLogoutHandler = (handler) => {
 };
 
 const instance = axios.create({
-  baseURL: process.env.API_GATEWAY_URL || "http://localhost:5000",
+  baseURL: process.env.REACT_APP_API_GATEWAY_URL || "http://localhost:5000",
   headers: { "Content-Type": "application/json" },
   withCredentials: true,  //Important for sending cookies
 });
